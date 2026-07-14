@@ -122,21 +122,22 @@
 //     );
 // }
 
-// app/(main)/dashboard/page.jsx
-
 "use client";
 
-import { Bell, Wallet, ArrowDownLeft, ArrowUpRight, Plus, Home, Users, Receipt, User, LogOut } from "lucide-react";
-// import { useState } from "react";
-// import Image from "next/image";
-//  import useGroupStore from "../../../store/groupStore";
-//  import useAuthStore from "../../../store/authStore";
-//  import useRouter from "next/navigation";
+import { Bell, Menu, ChevronRight, LogOut, Receipt, Timer, Subscript, BookMarked, LucideBookMarked, Check, CheckSquare } from "lucide-react";
+import BottomNavigation from "../../../componets/BottomNvigation";
+import useAuthStore from "../../../store/authStore";
+import { useRouter } from "next/navigation";
 
-export default function Dashboard() {
-    //   const { logout, user, checkAuth } = useAuthStore();
-    // const router = useRouter();
-    // // const [showModal, setShowModal] = useState(false);
+// import Image from "next/image";
+import useGroupStore from "../../../store/groupStore";
+import { useEffect } from "react";
+// import Link from "next/link";
+
+export default function HomePage() {
+    const { logout, checkAut, user } = useAuthStore();
+    const router = useRouter();
+    // const [showModal, setShowModal] = useState(false);
     // const { groups, fetchGroups } = useGroupStore();
 
     // useEffect(() => {
@@ -146,121 +147,153 @@ export default function Dashboard() {
 
     // console.log("grup:", groups);
 
-    // const handleLogout = async () => {
-    //     await logout();
-    //     router.push("/login");
-    // };
+    const handleLogout = async () => {
+        await logout();
+        router.push("/login");
+    };
     return (
-        <div className="min-h-screen bg-gray-100 p-3">
+        <main className="min-h-screen  pb-24 bg-background">
             {/* Header */}
+            <section className=" rounded-b-3xl  px-5 pt-6 pb-5">
+                <div className="flex items-center justify-between">
+                    {/* Left Side */}
+                    <div className="flex items-center gap-3">
+                        <div className="h-12 w-12 overflow-hidden rounded-full border">
+                            <img src={user?.profilePic} alt="profile" className="h-full w-full object-cover" />
+                        </div>
 
-            <div className="flex items-center justify-between ">
-                <div className="flex items-center  gap-3">
-                    <div className="h-12 w-12 overflow-hidden rounded-full border">
-                        <img alt="profile" className="h-full w-full object-cover" />
+                        <div>
+                            <h2 className="font-semibold text-text">Hi,  {user?.username?.toUpperCase()}</h2>
+                            <p className="text-sm text-text-muted">Welcome Back</p>
+                        </div>
                     </div>
 
-                    <div>
-                        <h2 className="font-semibold text-text">Hi, </h2>
-                        <p className="text-sm text-text-muted">Welcom Back</p>
-                    </div>
+                    {/* Right Side */}
                     <div className="flex items-center gap-4">
-                        {/* Notification */}
-                        <div className="relative
-                        cursor-pointer">
+                        <div className="relative cursor-pointer">
                             <Bell className="text-primary-dark" size={22} />
 
-                            {/* Notification Dot */}
                             <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-yellow-400 border-2 border-white"></span>
                         </div>
 
-                        {/* Logout */}
-                        <button>
+                        <button onClick={handleLogout}>
                             <LogOut size={22} className="text-red-500 hover:text-red-600" />
                         </button>
                     </div>
                 </div>
-                </div>
-            
 
-            <div className="p-4 space-y-5">
                 {/* Balance */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white rounded-2xl p-4 shadow">
-                        <p className="text-gray-500 text-sm">You Will Get</p>
-                        <h2 className="text-2xl font-bold text-green-600">₹2,850</h2>
+
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                    <div className="bg-green-50 rounded-4xl p-5">
+                        <p className="text-gray-600">You Will Get</p>
+
+                        <h2 className="text-3xl font-bold text-green-700 mt-2">₹800</h2>
+                        <button className="mt-6 text-sm font-medium text-green-600 underline underline-offset-4">
+                            View Details
+                        </button>
                     </div>
 
-                    <div className="bg-white rounded-2xl p-4 shadow">
-                        <p className="text-gray-500 text-sm">You Owe</p>
-                        <h2 className="text-2xl font-bold text-red-600">₹750</h2>
+                    <div className="bg-red-50 rounded-2xl p-5">
+                        <p className="text-gray-600">You Owe</p>
+
+                        <h2 className="text-3xl font-bold text-red-600 mt-2">₹2500</h2>
+                        <button className="mt-6 text-sm font-medium text-red-600 underline underline-offset-4">
+                            View Details
+                        </button>
                     </div>
                 </div>
+            </section>
 
-                {/* Pending Settlement */}
-                <div className="bg-white rounded-2xl shadow p-4">
-                    <div className="flex justify-between">
-                        <h3 className="font-semibold">Pending Settlement</h3>
+            {/* Overview */}
+            <section className="px-5 mt-6 ">
+                <h2 className="font-semibold text-xl mb-3">Overview</h2>
 
-                        <span className="bg-red-100 text-red-600 px-2 rounded-full text-sm">2</span>
+                <div className=" rounded-xl  bg-white border border-gray-200 ">
+                    <div className="flex justify-between items-center px-4 py-4">
+                        <div className="flex items-center gap-3"> <span className=""><Receipt size={22} /></span>
+                        <span>Total Transactions</span></div>
+                     
+                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold text-sm">18</span>
                     </div>
 
-                    <p className="text-gray-500 mt-2">2 requests waiting for your response.</p>
+                    <div className="mx-4 border border-gray-200"></div>
+
+                    <div className="flex justify-between items-center px-4 py-4">
+                      <div className="flex items-center gap-3">
+                         <span className=""><Timer size={22} /></span>
+                        <span>Pending Settlement</span>
+                      </div>
+                      
+                      
+                        <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-semibold text-sm">
+                            7
+                        </span>
+                    </div>
+
+                    <div className="mx-4 border border-gray-200"></div>
+
+                    <div className="flex justify-between items-center px-4 py-4">
+                      <div className="flex items-center gap-3">
+                         <span className="">< CheckSquare size={22} /></span>
+                        <span>Settled</span>
+                      </div>
+                      
+                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full font-semibold text-sm">11</span>
+                    </div>
+                </div>
+            </section>
+
+            {/* Recent Transactions */}
+            <section className="px-5 mt-6">
+                <div className="flex justify-between items-center mb-3">
+                    <h2 className="font-bold text-xl">Recent Transactions</h2>
+
+                    <button className="text-[#255736] font-medium underline underline-offset-4">View All</button>
                 </div>
 
-                {/* Recent Transactions */}
+                <div>
+                    {/* Transaction 1 */}
+                    <div className="flex justify-between items-center px-4 py-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-slate-200"></div>
 
-                <div className="bg-white rounded-2xl shadow">
-                    <div className="p-4 border-b">
-                        <h3 className="font-semibold">Recent Transactions</h3>
-                    </div>
-
-                    <div className="divide-y">
-                        <div className="flex justify-between p-4">
-                            <div className="flex gap-3">
-                                <ArrowDownLeft className="text-green-600" />
-                                <div>
-                                    <p>Dinner Expense</p>
-                                    <small className="text-gray-500">Hostel Friends</small>
-                                </div>
+                            <div>
+                                <h3 className="font-medium">Ameen</h3>
+                                <p className="text-sm text-gray-500">Expense</p>
                             </div>
-
-                            <span className="text-green-600 font-semibold">+₹300</span>
                         </div>
 
-                        <div className="flex justify-between p-4">
-                            <div className="flex gap-3">
-                                <ArrowUpRight className="text-red-600" />
-                                <div>
-                                    <p>Trip Expense</p>
-                                    <small className="text-gray-500">College Friends</small>
-                                </div>
-                            </div>
+                        <div className="text-right">
+                            <p className="font-semibold">₹2500</p>
+                            <span className="text-sm text-gray-500">Today</span>
+                        </div>
+                    </div>
 
-                            <span className="text-red-600 font-semibold">-₹450</span>
+                    <div className="mx-4 border border-gray-200"></div>
+
+                    {/* Transaction 2 */}
+                    <div className="flex justify-between items-center px-4 py-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-slate-200"></div>
+
+                            <div>
+                                <h3 className="font-medium">Nisha</h3>
+                                <p className="text-sm text-gray-500">Expense</p>
+                            </div>
+                        </div>
+
+                        <div className="text-right">
+                            <p className="font-semibold">₹450</p>
+                            <span className="text-sm text-gray-500">Yesterday</span>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            {/* Floating Button */}
-
-            <button className="fixed bottom-20 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-[#255736] text-white shadow-lg flex items-center justify-center">
-                <Plus size={30} />
-            </button>
+            </section>
 
             {/* Bottom Navigation */}
 
-            <nav className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-3">
-                <Home className="text-[#255736]" />
-
-                <Users />
-
-                <Receipt />
-
-                <User />
-            </nav>
-        </div>
-        
+            <BottomNavigation />
+        </main>
     );
 }

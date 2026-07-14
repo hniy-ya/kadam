@@ -5,6 +5,7 @@ import {
   Receipt,
   Wallet,
   ArrowRight,
+  IndianRupee,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -13,21 +14,24 @@ export default function LandingPage() {
 
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-5">
-        <h1 className="text-2xl font-bold text-primary-dark">
+        <div className="flex items-center gap-1 "><IndianRupee size={25} className=" text-amber-50 bg-green-900 rounded-lg p-1"/>
+        <h1 className="text-xl font-bold text-primary-dark">
+          
           KADAM
-        </h1>
+        </h1></div>
+        
 
         <div className="flex gap-3">
           <Link
             href="/login"
-            className="rounded-xl border px-4 py-2"
+            className="rounded-xl border px-2 py-2"
           >
             Login
           </Link>
 
           <Link
             href="/register"
-            className="rounded-xl bg-primary-dark px-4 py-2 text-white"
+            className="rounded-xl bg-primary-dark px-2 py-2 text-white"
           >
             Register
           </Link>
