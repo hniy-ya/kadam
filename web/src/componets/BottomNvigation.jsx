@@ -23,7 +23,7 @@ import {
 
         {/* Home */}
         <Link
-          href="/"
+          href="/dashboard"
           className="flex flex-col items-center text-primary-dark"
         >
           <Home size={22} />
